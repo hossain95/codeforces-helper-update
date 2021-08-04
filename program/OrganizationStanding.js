@@ -56,6 +56,9 @@ document.getElementById("formOrganization").addEventListener("submit", (e) =>
             var contestStanding = await fetch(`https://codeforces.com/api/contest.standings?contestId=${ContestId}&showUnofficial=false`).then(response => response.json());
             var contestName = contestStanding.result.contest.name;
             contestStanding = contestStanding.result.rows;
+
+            var SearchUserGlobalRank = "Not found!";
+
             for(var i = 0; i < contestStanding.length; i++)
             {
                if(countryUserMap.get(contestStanding[i].party.members[0].handle) && contestStanding[i].party.participantType == "CONTESTANT")
@@ -70,6 +73,11 @@ document.getElementById("formOrganization").addEventListener("submit", (e) =>
                   };
                   selectedContestant.set(contestStanding[i].party.members[0].handle, tem);
                }
+               if(contestStanding[i].party.members[0].handle == counHandle)
+               {
+                  SearchUserCountryRank = i;
+                  SearchUserGlobalRank = contestStanding[i].rank;
+               }
             }
             countryUserMap.clear();
             console.log(selectedContestant);
@@ -81,7 +89,7 @@ document.getElementById("formOrganization").addEventListener("submit", (e) =>
 
 
             var SearchUserCountryRank = "Not found!";
-            var SearchUserGlobalRank = "Not found!";
+            
             var i = 1;
             selectedContestant.forEach(element =>
             {
@@ -90,7 +98,7 @@ document.getElementById("formOrganization").addEventListener("submit", (e) =>
                 if(element.handle == counHandle)
                 {
                    SearchUserCountryRank = i;
-                   SearchUserGlobalRank = element.rank;
+                   //SearchUserGlobalRank = element.rank;
                 }
                 const trow = document.createElement('tr');
                 document.getElementById("Tablebody").appendChild(trow);
