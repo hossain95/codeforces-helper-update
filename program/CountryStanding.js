@@ -55,6 +55,9 @@ document.getElementById("formCountry").addEventListener("submit", (e) =>
             var contestStanding = await fetch(`https://codeforces.com/api/contest.standings?contestId=${ContestId}&showUnofficial=false`).then(response => response.json());
             var contestName = contestStanding.result.contest.name;
             contestStanding = contestStanding.result.rows;
+
+            var SearchUserGlobalRank = "not Found!";
+
             for(var i = 0; i < contestStanding.length; i++)
             {
                if(countryUserMap.get(contestStanding[i].party.members[0].handle) && contestStanding[i].party.participantType == "CONTESTANT")
@@ -69,6 +72,11 @@ document.getElementById("formCountry").addEventListener("submit", (e) =>
                   };
                   selectedContestant.set(contestStanding[i].party.members[0].handle, tem);
                }
+               if(contestStanding[i].party.members[0].handle == counHandle)
+               {
+                  //SearchUserCountryRank = i;
+                  SearchUserGlobalRank = contestStanding[i].rank;
+               }
             }
             countryUserMap.clear();
 
@@ -80,7 +88,8 @@ document.getElementById("formCountry").addEventListener("submit", (e) =>
             document.getElementById("CountryNameDisplay").innerText = CountryName;
 
             var SearchUserCountryRank = "not Found!";
-            var SearchUserGlobalRank = "not Found!";
+
+
             var i = 1;
            selectedContestant.forEach(element =>
            {
