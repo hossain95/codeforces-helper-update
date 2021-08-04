@@ -80,8 +80,8 @@ document.getElementById("formOrganization").addEventListener("submit", (e) =>
 
 
 
-            var SearchUserCountryRank = "No fount!";
-            var SearchUserGlobalRank = "No foutn!";
+            var SearchUserCountryRank = "Not found!";
+            var SearchUserGlobalRank = "Not found!";
             var i = 1;
             selectedContestant.forEach(element =>
             {
